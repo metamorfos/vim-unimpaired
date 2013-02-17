@@ -17,15 +17,15 @@ function! s:MapNextFamily(map,cmd)
   execute 'nnoremap <silent> '.map.'Next     :<C-U>exe "'.a:cmd.'next'.end
   execute 'nnoremap <silent> '.map.'First    :<C-U>exe "'.a:cmd.'first'.end
   execute 'nnoremap <silent> '.map.'Last     :<C-U>exe "'.a:cmd.'last'.end
-  execute 'nmap <silent> ['.        a:map .' '.map.'Previous'
-  execute 'nmap <silent> ]'.        a:map .' '.map.'Next'
-  execute 'nmap <silent> ['.toupper(a:map).' '.map.'First'
-  execute 'nmap <silent> ]'.toupper(a:map).' '.map.'Last'
+  execute 'nmap <silent> ('.        a:map .' '.map.'Previous'
+  execute 'nmap <silent> )'.        a:map .' '.map.'Next'
+  execute 'nmap <silent> ('.toupper(a:map).' '.map.'First'
+  execute 'nmap <silent> )'.toupper(a:map).' '.map.'Last'
   if exists(':'.a:cmd.'nfile')
     execute 'nnoremap <silent> '.map.'PFile :<C-U>exe "'.a:cmd.'pfile'.end
     execute 'nnoremap <silent> '.map.'NFile :<C-U>exe "'.a:cmd.'nfile'.end
-    execute 'nmap <silent> [<C-'.a:map.'> '.map.'PFile'
-    execute 'nmap <silent> ]<C-'.a:map.'> '.map.'NFile'
+    execute 'nmap <silent> (<C-'.a:map.'> '.map.'PFile'
+    execute 'nmap <silent> )<C-'.a:map.'> '.map.'NFile'
   endif
 endfunction
 
@@ -88,21 +88,21 @@ endfunction
 
 nnoremap <silent> <Plug>unimpairedDirectoryNext     :<C-U>edit <C-R>=<SID>fnameescape(<SID>FileByOffset(v:count1))<CR><CR>
 nnoremap <silent> <Plug>unimpairedDirectoryPrevious :<C-U>edit <C-R>=<SID>fnameescape(<SID>FileByOffset(-v:count1))<CR><CR>
-nmap ]f <Plug>unimpairedDirectoryNext
-nmap [f <Plug>unimpairedDirectoryPrevious
+nmap )f <Plug>unimpairedDirectoryNext
+nmap (f <Plug>unimpairedDirectoryPrevious
 
-nmap <silent> <Plug>unimpairedONext     <Plug>unimpairedDirectoryNext:echohl WarningMSG<Bar>echo "]o is deprecated. Use ]f"<Bar>echohl NONE<CR>
-nmap <silent> <Plug>unimpairedOPrevious <Plug>unimpairedDirectoryPrevious:echohl WarningMSG<Bar>echo "[o is deprecated. Use [f"<Bar>echohl NONE<CR>
-nmap ]o <Plug>unimpairedONext
-nmap [o <Plug>unimpairedOPrevious
+nmap <silent> <Plug>unimpairedONext     <Plug>unimpairedDirectoryNext:echohl WarningMSG<Bar>echo ")o is deprecated. Use )f"<Bar>echohl NONE<CR>
+nmap <silent> <Plug>unimpairedOPrevious <Plug>unimpairedDirectoryPrevious:echohl WarningMSG<Bar>echo "(o is deprecated. Use (f"<Bar>echohl NONE<CR>
+nmap )o <Plug>unimpairedONext
+nmap (o <Plug>unimpairedOPrevious
 
 " }}}1
 " Diff {{{1
 
-nmap [n <Plug>unimpairedContextPrevious
-nmap ]n <Plug>unimpairedContextNext
-omap [n <Plug>unimpairedContextPrevious
-omap ]n <Plug>unimpairedContextNext
+nmap (n <Plug>unimpairedContextPrevious
+nmap )n <Plug>unimpairedContextNext
+omap (n <Plug>unimpairedContextPrevious
+omap )n <Plug>unimpairedContextNext
 
 nnoremap <silent> <Plug>unimpairedContextPrevious :call <SID>Context(1)<CR>
 nnoremap <silent> <Plug>unimpairedContextNext     :call <SID>Context(0)<CR>
@@ -161,8 +161,8 @@ endfunction
 nnoremap <silent> <Plug>unimpairedBlankUp   :<C-U>call <SID>BlankUp(v:count1)<CR>
 nnoremap <silent> <Plug>unimpairedBlankDown :<C-U>call <SID>BlankDown(v:count1)<CR>
 
-nmap [<Space> <Plug>unimpairedBlankUp
-nmap ]<Space> <Plug>unimpairedBlankDown
+nmap (<Space> <Plug>unimpairedBlankUp
+nmap )<Space> <Plug>unimpairedBlankDown
 
 function! s:Move(cmd, count, map) abort
   normal! m`
@@ -176,10 +176,10 @@ nnoremap <silent> <Plug>unimpairedMoveDown :<C-U>call <SID>Move('+',v:count1,'Do
 xnoremap <silent> <Plug>unimpairedMoveUp   :<C-U>exe 'exe "normal! m`"<Bar>''<,''>move--'.v:count1<CR>``
 xnoremap <silent> <Plug>unimpairedMoveDown :<C-U>exe 'exe "normal! m`"<Bar>''<,''>move''>+'.v:count1<CR>``
 
-nmap [e <Plug>unimpairedMoveUp
-nmap ]e <Plug>unimpairedMoveDown
-xmap [e <Plug>unimpairedMoveUp
-xmap ]e <Plug>unimpairedMoveDown
+nmap (e <Plug>unimpairedMoveUp
+nmap )e <Plug>unimpairedMoveDown
+xmap (e <Plug>unimpairedMoveUp
+xmap )e <Plug>unimpairedMoveDown
 
 " }}}1
 " Option toggling {{{1
@@ -189,27 +189,27 @@ function! s:toggle(op)
 endfunction
 
 function! s:option_map(letter, option)
-  exe 'nnoremap [o'.a:letter.' :set '.a:option.'<CR>'
-  exe 'nnoremap ]o'.a:letter.' :set no'.a:option.'<CR>'
+  exe 'nnoremap (o'.a:letter.' :set '.a:option.'<CR>'
+  exe 'nnoremap )o'.a:letter.' :set no'.a:option.'<CR>'
   exe 'nnoremap co'.a:letter.' :set <C-R>=<SID>toggle("'.a:option.'")<CR><CR>'
 endfunction
 
 call s:option_map('c', 'cursorline')
 call s:option_map('u', 'cursorcolumn')
-nnoremap [od :diffthis<CR>
-nnoremap ]od :diffoff<CR>
+nnoremap (od :diffthis<CR>
+nnoremap )od :diffoff<CR>
 nnoremap cod :<C-R>=&diff ? 'diffoff' : 'diffthis'<CR><CR>
 call s:option_map('h', 'hlsearch')
 call s:option_map('i', 'ignorecase')
 call s:option_map('l', 'list')
-nnoremap [on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>number<CR>
-nnoremap ]on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>nonumber<CR>
+nnoremap (on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>number<CR>
+nnoremap )on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>nonumber<CR>
 nnoremap con :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '').<SID>toggle('number')<CR><CR>
 call s:option_map('r', 'relativenumber')
 call s:option_map('s', 'spell')
 call s:option_map('w', 'wrap')
-nnoremap [ox :set cursorline cursorcolumn<CR>
-nnoremap ]ox :set nocursorline nocursorcolumn<CR>
+nnoremap (ox :set cursorline cursorcolumn<CR>
+nnoremap )ox :set nocursorline nocursorcolumn<CR>
 nnoremap cox :set <C-R>=&cursorline && &cursorcolumn ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
 function! s:setup_paste() abort
@@ -406,12 +406,12 @@ function! UnimpairedMapTransform(algorithm, key)
   exe 'nmap '.a:key.a:key[strlen(a:key)-1].' <Plug>unimpaired_line_'.a:algorithm
 endfunction
 
-call UnimpairedMapTransform('string_encode','[y')
-call UnimpairedMapTransform('string_decode',']y')
-call UnimpairedMapTransform('url_encode','[u')
-call UnimpairedMapTransform('url_decode',']u')
-call UnimpairedMapTransform('xml_encode','[x')
-call UnimpairedMapTransform('xml_decode',']x')
+call UnimpairedMapTransform('string_encode','(y')
+call UnimpairedMapTransform('string_decode',')y')
+call UnimpairedMapTransform('url_encode','(u')
+call UnimpairedMapTransform('url_decode',')u')
+call UnimpairedMapTransform('xml_encode','(x')
+call UnimpairedMapTransform('xml_decode',')x')
 
 " }}}1
 
