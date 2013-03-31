@@ -205,6 +205,9 @@ call s:option_map('l', 'list')
 nnoremap (on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>number<CR>
 nnoremap )on :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '')<CR>nonumber<CR>
 nnoremap con :set <C-R>=(exists('+rnu') && &rnu ? 'norelativenumber ' : '').<SID>toggle('number')<CR><CR>
+nnoremap <silent> (oq :set colorcolumn=0<CR>
+nnoremap <silent> )oq :set colorcolumn=+1<CR>
+nnoremap <silent> coq :set <C-R>=&colorcolumn == '+1' ? 'colorcolumn=0' : "colorcolumn=+1"<CR><CR>
 call s:option_map('r', 'relativenumber')
 call s:option_map('s', 'spell')
 nnoremap <silent> (ov :set laststatus=1<CR>

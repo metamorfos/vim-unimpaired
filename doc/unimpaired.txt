@@ -79,6 +79,7 @@ On	Off	Toggle	Option
 *(oi*	*)oi*	*coi*	'ignorecase'
 *(ol*	*)ol*	*col*	'list'
 *(on*	*)on*	*con*	'number'
+*(oq*	*)oq*	*coq*	'colorcolumn'
 *(or*	*)or*	*cor*	'relativenumber'
 *(os*	*)os*	*cos*	'spell'
 *(ou*	*)ou*	*cou*	'cursorcolumn'
